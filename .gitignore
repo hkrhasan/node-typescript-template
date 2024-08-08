@@ -1,0 +1,12 @@
+/node_modules
+/dist
+
+
+*lock.json
+*lock.yaml
+*lock.yml
+
+*.swp
+*.swo
+*.swn
+*.swp.*

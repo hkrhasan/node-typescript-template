@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+        "@/*": ["src/*"],
+        "@types/*": ["src/types/*"]
+    }
+  },
+  "include": ["src/**/*", "src/types/**/*"],
+  "exclude": ["**/*.spec.ts", "dist/**/*", "node_modules"]
+}
