@@ -1,12 +1,15 @@
 import express from "express";
 import cors from "cors";
 import { createServer } from "http";
+import { PrismaClient } from "@prisma/client";
+
 import { morganMiddleware } from "./middlewares";
 import { logger } from "./utility";
 
 // CONSTANTS
 const PORT = process.env.PORT || 3000;
 const app = express();
+const prisma = new PrismaClient();
 
 async function main() {
   // initialize middlewares here
@@ -20,16 +23,19 @@ async function main() {
     res.send("Hello World");
   });
 
-  return createServer(app);
+  const server = createServer(app);
+  server.listen(PORT, () => {
+    logger.info(`Server is running on port ${PORT}`);
+  });
 }
 
 main()
-  .then((server) => {
-    server.listen(PORT, () => {
-      logger.info(`Server is running on port ${PORT}`);
-    });
+  .then(async () => {
+    await prisma.$connect();
+    logger.info("Database connected");
   })
-  .catch((err) => {
+  .catch(async (err) => {
     logger.error(err);
+    await prisma.$disconnect();
     process.exit(1);
   });
