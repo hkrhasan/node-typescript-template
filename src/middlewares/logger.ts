@@ -1,20 +1,7 @@
-import winston from "winston";
 import morgan from "morgan";
+import { logger } from "../utility";
 
-const { combine, timestamp, json } = winston.format;
-
-const logger = winston.createLogger({
-  level: "http",
-  format: combine(
-    timestamp({
-      format: "YYYY-MM-DD hh:mm:ss.SSS A",
-    }),
-    json()
-  ),
-  transports: [new winston.transports.Console()],
-});
-
-const morganMiddleware = morgan(
+export const morganMiddleware = morgan(
   ":method :url :status :res[content-length] - :response-time ms",
   {
     stream: {
@@ -23,5 +10,3 @@ const morganMiddleware = morgan(
     },
   }
 );
-
-export { logger, morganMiddleware };

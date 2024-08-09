@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { createServer } from "http";
-import { morganMiddleware, logger } from "./middlewares";
+import { morganMiddleware } from "./middlewares";
+import { logger } from "./utility";
 
 // CONSTANTS
 const PORT = process.env.PORT || 3000;
