@@ -1,0 +1,28 @@
+export enum DEFAULT_ROLES {
+  ADMIN = 0,
+  DOCTOR,
+  PATIENT,
+  LAB,
+  HOSPITAL,
+  PHARMACY,
+  COUNT,
+}
+
+export enum DEFAULT_RESOURCES {
+  USERS = 0,
+  PROFILE,
+  PATIENTS,
+  DOCTORS,
+  HOSPITALS,
+  LABS,
+  PHARMACIES,
+  COUNT,
+}
+
+export enum DEFAULT_PERMISSIONS {
+  CREATE = 0,
+  READ,
+  UPDATE,
+  DELETE,
+  COUNT,
+}

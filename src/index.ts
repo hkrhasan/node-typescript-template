@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
+import Config from "./config";
+import routes from "./routes";
 import { createServer } from "http";
 import { PrismaClient } from "@prisma/client";
-
 import { morganMiddleware } from "./middlewares";
-import { logger } from "./utility";
+import { logger, notFound } from "./utility";
 
 // CONSTANTS
-const PORT = process.env.PORT || 3000;
 const app = express();
 const prisma = new PrismaClient();
 
@@ -22,20 +22,26 @@ async function main() {
   app.get("/", (_, res) => {
     res.send("Hello World");
   });
+  app.use("/api/v1", routes);
+  app.use("*", notFound);
 
   const server = createServer(app);
-  server.listen(PORT, () => {
-    logger.info(`Server is running on port ${PORT}`);
+  server.listen(Config.PORT, () => {
+    logger.info(`Server is running on port ${Config.PORT}`);
   });
 }
 
 main()
   .then(async () => {
-    await prisma.$connect();
-    logger.info("Database connected");
+    try {
+      await prisma.$connect();
+      logger.info("Database connected");
+    } catch (error) {
+      throw error;
+    }
   })
   .catch(async (err) => {
-    logger.error(err);
+    logger.error("Error: ", err);
     await prisma.$disconnect();
     process.exit(1);
   });

@@ -1,9 +1,13 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
     "preserveConstEnums": true,
     "outDir": "dist",
     "rootDir": "src",
+    "moduleResolution": "node",
+    "useUnknownInCatchVariables": false,
+    "baseUrl": "./",
     "paths": {
         "@/*": ["src/*"],
         "@types/*": ["src/types/*"]

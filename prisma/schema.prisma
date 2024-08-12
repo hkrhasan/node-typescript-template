@@ -5,16 +5,85 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
+// MODELS
 
 model User {
-    id String @id @default(cuid())
-    username String @unique
+    id          String      @id @default(cuid())
+    email       String      @unique
+    password    String
+    firstName   String?
+    lastName    String?
+    phoneNumber String?     @unique
+    childs      User[]      @relation("parent")
+    parent      User?       @relation("parent", fields: [parentId], references: [id])
+    parentId    String?
+    roles       RoleUsers[]
+
+    attributes Json? // Additional user attributes for ABAC
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Resources {
+    id          Int     @id @default(autoincrement())
+    name        String  @unique
+    description String?
+
+    attributes Json? // Additional resource attributes for ABAC
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Role {
+    id          Int              @id @default(autoincrement())
+    name        String           @unique
+    description String?
+    users       RoleUsers[]
+    permissions RolePermission[]
+    attributes  Json? // Additional role attributes for ABAC
+    createdAt   DateTime         @default(now())
+    updatedAt   DateTime         @updatedAt
+}
+
+model RoleUsers {
+    id     Int    @id @default(autoincrement())
+    role   Role   @relation(fields: [roleId], references: [id])
+    roleId Int
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
+
+    attributes Json? // Additional role user attributes for ABAC
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Permission {
+    id          Int     @id @default(autoincrement())
+    name        String  @unique
+    description String?
+
+    roles      RolePermission[]
+    attributes Json? // Additional permission attributes for ABAC
+    createdAt  DateTime         @default(now())
+    updatedAt  DateTime         @updatedAt
+}
+
+model RolePermission {
+    id           Int        @id @default(autoincrement())
+    role         Role       @relation(fields: [roleId], references: [id])
+    roleId       Int
+    permission   Permission @relation(fields: [permissionId], references: [id])
+    permissionId Int
+
+    attributes Json? // Additional role permission attributes for ABAC
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }

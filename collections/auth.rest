@@ -1,0 +1,31 @@
+# host
+http://localhost:3000
+
+# Headers
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsem55Y202bjAwMDB5cmIxMGtnYmd0NWQiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImlhdCI6MTcyMzI5NDUxNCwiZXhwIjoxNzIzMjk1NDE0fQ.Qvo9bxGKHYseotWrgXltt9-3L9Eidxr89CK7bfFCUbY"
+
+# POST /api/v1/auth/register-with-email-password
+# {
+#     "email": "test@gmail.com",
+#     "password": "test",
+#     "firstName": "test",
+#     "lastName": "test",
+#     "confirmPassword": "test"
+# }
+
+
+
+POST /api/v1/auth/login-with-email-password
+{
+    "email": "test@gmail.com",
+    "password": "test"
+}
+
+# Response
+# {"success":true,"data":{"id":"clznycm6n0000yrb10kgbgt5d","email":"test@gmail.com","firstName":"test","lastName":"test","tokens":{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsem55Y202bjAwMDB5cmIxMGtnYmd0NWQiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImlhdCI6MTcyMzI5NDUxNCwiZXhwIjoxNzIzMjk1NDE0fQ.Qvo9bxGKHYseotWrgXltt9-3L9Eidxr89CK7bfFCUbY","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsem55Y202bjAwMDB5cmIxMGtnYmd0NWQiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdCIsImlhdCI6MTcyMzI5NDUxNCwiZXhwIjoxNzIzODk5MzE0fQ.2ygcxJU1QhxnrzLsF2v1DVoOxwELRP8Mh15PYStG8zc"}},"message":"Login Success"}
+
+
+
+# GET /api/v1/protected
+
+

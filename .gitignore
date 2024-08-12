@@ -1,7 +1,8 @@
 /node_modules
 /dist
 
-
+.env
+.env*
 *lock.json
 *lock.yaml
 *lock.yml
